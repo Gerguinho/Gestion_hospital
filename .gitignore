@@ -1,0 +1,5 @@
+*.exe
+*.o
+*.csv
+id_rsa.pub 
+id_rsa.pub.pub
