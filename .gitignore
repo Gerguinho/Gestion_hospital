@@ -1,5 +1,6 @@
 *.exe
 *.o
+*.txt
 patient.csv
 id_rsa.pub 
 id_rsa.pub.pub

@@ -6,6 +6,7 @@
 #include"gerer.h"
 const char *FILE_patient = "patient.csv";
 const char *FILE_medecin="Medecin.csv";
+
 void fonction_principale(){
     int a;
     printf("Qui etes vous ?\n");

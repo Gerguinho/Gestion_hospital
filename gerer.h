@@ -15,8 +15,10 @@ void patient();// fonction où se retrouve l'utilisateur après avoir choisi l'o
 void essai_gratuit();
 void abonnement();
 void connection_patient();
+void ecrirePatient();
 extern const char *FILE_patient;
 extern const char *FILE_medecin;
+//extern const char *FILE_messages;
 
 // Définition d'une structure pour stocker les infos d'un utilisateur
 typedef struct {
@@ -26,6 +28,7 @@ typedef struct {
 } Date;
 
 typedef struct {
+    int id;
     char nom[MAX_L];
     char prenom[MAX_L];
     Date date_nais;
