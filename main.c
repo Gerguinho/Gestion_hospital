@@ -2,6 +2,7 @@
 #include "gerer.h"
 
 int main() {
-    fonction_principale();
+   // fonction_principale();
+    ecrirePatient();
     return 0;
 }

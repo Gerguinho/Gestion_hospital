@@ -5,9 +5,26 @@
 #include <unistd.h>
 #include"gerer.h"
 
+int getLastID() {
+    FILE *f = fopen(FILE_patient, "r");
+    if (f == NULL) return 0;  // Si le fichier n'existe pas, on commence à ID 1
+
+    char ligne[300];
+    int lastID = 0, tempID=0;
+    
+    while (fgets(ligne, sizeof(ligne), f)) {
+        sscanf(ligne, "%d,%*[^,],%*[^,],%*d/%*d/%*d,%*[^,],%*s", &tempID);
+        lastID = tempID;
+    }
+    
+    fclose(f);
+    return lastID;
+}
+
 void inscription() {
 
     User us;
+    us.id= getLastID()+1;
 
     // Saisie des informations utilisateur
     printf("Entrez votre nom : ");
@@ -26,6 +43,7 @@ void inscription() {
     fgets(us.Email,MAX_L,stdin);
     us.Email[strcspn(us.Email,"\n")]='\0';
     sleep(1);
+    M:
     printf("Entrez votre mot de passe");
     fgets(us.mot_passe,MAX_L,stdin);
     us.mot_passe[strcspn(us.mot_passe,"\n")]='\0';
@@ -36,6 +54,7 @@ void inscription() {
     sleep(1);
     if(strcmp(us.mot_passe,us.mot_passe_confirm)!=0){
         printf("Erreur ");//modifier le message 
+        goto M;
     }else{
         printf("✅");// ajouter un emoji de juste 
     }
@@ -47,7 +66,7 @@ void inscription() {
     }
 
     // Écriture dans le fichier CSV
-    fprintf(f, "%s %s %s %s\n",us.nom, us.prenom, /*us.date_nais.jour, us.date_nais.mois, us.date_nais.annee*/us.Email,us.mot_passe);
+    fprintf(f,"%d %s %s %s %s\n",us.id,us.nom, us.prenom,us.Email,us.mot_passe);
 
     printf("\n✅ Enregistrement effectué avec succès !\n");
 
