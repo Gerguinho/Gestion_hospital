@@ -21,10 +21,11 @@ void ecrirePatient() {
         sscanf(ligne, "%d %s %s", &patientID, patientNom, patientPrenom);
         printf("%d | %s | %s\n", patientID, patientNom, patientPrenom);
     }
+    
     rewind(filePatients); // Revenir au début du fichier
-    system("cls");
+    
     // Sélection du patient
-    l:
+   
     printf("\nEntrez l'ID du patient à qui vous voulez écrire : ");
     scanf("%d", &choix);
     getchar(); // Éviter les problèmes de buffer
@@ -39,10 +40,9 @@ void ecrirePatient() {
     fclose(filePatients);
 
     if (!found) {
-        printf("⚠️ Patient introuvable !\n");
+        printf("Patient introuvable !\n");
         printf("vérifier encore ");
         return;
-        goto l;
     }
 
     // Création du fichier de messages pour ce patient
