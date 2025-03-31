@@ -23,7 +23,7 @@ void medecin(){
             break;
         case 3:
             system("cls");
-            printf("ecrire au patient");
+            ecrirePatient();
             break;
         
         default:
