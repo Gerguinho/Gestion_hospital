@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "gerer.h"
 
-int main() {
-   // fonction_principale();
-    ecrirePatient();
+/*int main() {
+   fonction_principale();
+    
     return 0;
-}
+}*/
