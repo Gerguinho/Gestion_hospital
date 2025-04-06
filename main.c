@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "gerer.h"
+#include <windows.h>
 
 int main() {
-   fonction_principale();
+SetConsoleOutputCP(65001);
+fonction_principale();
     
     return 0;
 }

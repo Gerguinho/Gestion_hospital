@@ -9,23 +9,25 @@ const char *FILE_medecin="Medecin.csv";
 
 void fonction_principale(){
     int a;
-    printf("Qui etes vous ?\n");
-    printf("1.Médecin\n2.patient\n");
+    system("cls");
+    printf("\n\n===== Qui etes vous ?=====\n\n");
     rin:
+    printf("1.Médecin\n\n2.patient\n");
+    
     scanf("%d",&a);
     system("cls");
     getchar();
     switch (a)
     {
     case 1:
-        connection();  //il faut gerer le probleme du
+        connection();  
         medecin();
         break;
     case 2:
         patient();
         break;
     default:
-        printf("choix invalide\n choisir entre 1 et 2");
+        printf("choix invalide\n\n    choisir entre 1 et 2\n\n");
         goto rin;
         }
     

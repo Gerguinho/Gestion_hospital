@@ -37,7 +37,8 @@ while (fscanf(file, "%s %s %s %s ", med.nom, med.prenom, med.Email, med.mot_pass
 fclose(file);
 
 if (found) {
-    printf("Connexion réussie ! Bienvenue Dr. %s \n", med.nom);
+    system("cls");
+    printf("Connexion réussie \n  \n  --------- Bienvenue Dr. %s----------", med.nom);
 } else {
     system("cls");
     printf("Erreur sur l'identifiant :Réessayez !\n");

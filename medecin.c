@@ -7,10 +7,10 @@
 void medecin(){
     int choix;
     bin:
-    printf("que souhaitez vous faire ?");
-    printf("\n 1.consulter le dossier médical d'un patient?");
-    printf("\n 2.modifier votre disponibilité pour aujourd'hui?");
-    printf("\n 3.écrire à un patient?");
+    printf("\n \n        que souhaitez vous faire ?");
+    printf("\n \n1.consulter le dossier médical d'un patient?");
+    printf("\n \n2.modifier votre disponibilité pour aujourd'hui?");
+    printf("\n \n3.écrire à un patient?");
     scanf("%d",&choix);
     switch(choix){
         case 1:
@@ -28,7 +28,7 @@ void medecin(){
         
         default:
             system("cls");
-            printf(" selectionné entre les numero 1, 2 ou 3\n");
+            printf(" \n       selectionnez entre les numeros 1, 2 ou 3\n\n");
         goto bin;
         break;
      }

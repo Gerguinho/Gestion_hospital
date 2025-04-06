@@ -13,7 +13,7 @@ void ecrirePatient() {
     int patientID, choix, found = 0;
 
     // Affichage de la liste des patients
-    printf("\n=== Liste des Patients ===\n");
+    printf("\n=== Liste des Patients ===\n\n\n");
     printf("ID | Nom | Prénom\n");
     printf("----------------------\n");
 
@@ -26,7 +26,7 @@ void ecrirePatient() {
     
     // Sélection du patient
    
-    printf("\nEntrez l'ID du patient à qui vous voulez écrire : ");
+    printf("\nEntrez l'ID du patient à qui vous voulez écrire : \n\n");
     scanf("%d", &choix);
     getchar(); // Éviter les problèmes de buffer
 
@@ -64,7 +64,7 @@ void ecrirePatient() {
     fprintf(fileMessages, "Message du médecin : %s\n", message);
     fclose(fileMessages);
 
-    printf("Message envoyé à %s %s avec succès !\n", patientPrenom, patientNom);
+    printf("\nMessage envoyé à %s %s avec succès !\n", patientNom, patientPrenom);
 }
 
 

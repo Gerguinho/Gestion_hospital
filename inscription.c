@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <conio.h>
 #include <unistd.h>
 #include"gerer.h"
 
@@ -21,16 +22,48 @@ int getLastID() {
     return lastID;
 }
 
-void inscription() {
 
+
+
+
+void saisir_mot_de_passe(char *mot_de_passe, int taille_max) {
+    int i = 0;
+    char c;
+
+    printf("Mot de passe : ");
+
+    while (1) {
+        c = getch(); // Lire un caractère sans l'afficher
+
+        if (c == 13) { // Entrée
+            break;
+        }
+
+        if (c == 8) { // Backspace
+            if (i > 0) {
+                i--;
+                printf("\b \b");
+            }
+        }
+        else if (i < taille_max - 1) {
+            mot_de_passe[i++] = c;
+            printf("*");
+        }
+    }
+
+    mot_de_passe[i] = '\0';
+    printf("\n");
+}
+
+void inscription() {
     User us;
-    us.id= getLastID()+1;
+    us.id = getLastID() + 1;
 
     // Saisie des informations utilisateur
     printf("Entrez votre nom : ");
     fgets(us.nom, MAX_L, stdin);
-    us.nom[strcspn(us.nom, "\n")] = '\0';  // Suppression du '\n'
-     sleep(1);
+    us.nom[strcspn(us.nom, "\n")] = '\0';
+    sleep(1);
     printf("Entrez votre prénom : ");
     fgets(us.prenom, MAX_L, stdin);
     us.prenom[strcspn(us.prenom, "\n")] = '\0';
@@ -40,36 +73,37 @@ void inscription() {
     getchar();  // Éviter un problème de buffer après `scanf`
     sleep(1);
     printf("Entrez votre adresse email : ");
-    fgets(us.Email,MAX_L,stdin);
-    us.Email[strcspn(us.Email,"\n")]='\0';
+    fgets(us.Email, MAX_L, stdin);
+    us.Email[strcspn(us.Email, "\n")] = '\0';
     sleep(1);
-    M:
-    printf("Entrez votre mot de passe");
-    fgets(us.mot_passe,MAX_L,stdin);
-    us.mot_passe[strcspn(us.mot_passe,"\n")]='\0';
+
+M:
+    printf("Entrez votre mot de passe\n");
+    saisir_mot_de_passe(us.mot_passe, MAX_L);
     sleep(1);
-    printf("confirmez votre mot de passe");
-    fgets(us.mot_passe_confirm,MAX_L,stdin);
-    us.mot_passe_confirm[strcspn(us.mot_passe_confirm,"\n")]='\0';// confirmation du mot de passe 
+    printf("Confirmez votre mot de passe\n");
+    saisir_mot_de_passe(us.mot_passe_confirm, MAX_L);
     sleep(1);
-    if(strcmp(us.mot_passe,us.mot_passe_confirm)!=0){
-        printf("Erreur ");//modifier le message 
+
+    if (strcmp(us.mot_passe, us.mot_passe_confirm) != 0) {
+        printf("Erreur : Les mots de passe ne correspondent pas.\n");
         goto M;
-    }else{
-        printf("✅");// ajouter un emoji de juste 
+    } else {
+        system("cls");
+        printf("✅ mot de passe confirmé\n");
     }
+
     // Ouvrir le fichier en mode ajout (a+)
     FILE *f = fopen(FILE_patient, "a+");
     if (f == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier.\n");
-        return ;
+        return;
     }
 
-    // Écriture dans le fichier CSV
-    fprintf(f,"%d %s %s %s %s\n",us.id,us.nom, us.prenom,us.Email,us.mot_passe);
+    // Écriture dans le fichier CSV (format d'origine conservé)
+    fprintf(f, "%d %s %s %s %s\n", us.id, us.nom, us.prenom, us.Email, us.mot_passe);
 
     printf("\n✅ Enregistrement effectué avec succès !\n");
 
-    // Fermer le fichier
     fclose(f);
 }
