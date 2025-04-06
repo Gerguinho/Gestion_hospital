@@ -18,7 +18,7 @@ void patient(){
         inscription();
         
         printf("\n\n        choisir un abonnement ou profiter des 1 mois d'essai gratuit?");
-        printf("\n\n 1 choisir un abonnement");
+        printf("\n\n 1. choisir un abonnement");
         printf("\n\n 2. Profiter du mois d'essai gratuit  ");
         scanf("%d",&choix);
         if(choix==1){

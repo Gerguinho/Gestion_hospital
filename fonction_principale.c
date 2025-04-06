@@ -10,7 +10,8 @@ const char *FILE_medecin="Medecin.csv";
 void fonction_principale(){
     int a;
     system("cls");
-    printf("\n\n===== Qui etes vous ?=====\n\n");
+    printf("\n\n     ===== PROSANTE =====\n");
+    printf("\n        QUI ETEZ VOUS ?\n\n");
     rin:
     printf("1.Médecin\n\n2.patient\n");
     

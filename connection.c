@@ -16,10 +16,10 @@ T:
         exit(0);
     }
 
-printf("=== Connexion Médecin ===\n");
-printf("nom:");
+printf("=== Connexion Médecin ===\n\n");
+printf("nom : ");
 scanf("%s",nom);
-printf("prenom:");
+printf("prenom : ");
 scanf("%s",prenom);
 printf("Email : ");
 scanf("%s", email);
