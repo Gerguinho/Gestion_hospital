@@ -20,8 +20,8 @@ T:
 
 
 printf("\n\n=== Connexion patient ===\n\n");
-printf("entrez l'id\n     ");
-scanf("%d",&id);
+/*printf("entrez l'id\n     ");
+scanf("%d",&id);*/
 printf("nom:\n     ");
 scanf("%s",nom);
 printf("prenom:\n     ");

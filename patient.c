@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include"gerer.h"
 void patient(){
-    int b,c,choix;
+    int b,c,choix, id_patient_connecte;
     run:
     printf("\n\n      voulez vous vous connecter ou vous inscrire?\n \n1. M'inscire  \n \n2. Me connecter ");
     
@@ -32,9 +32,10 @@ void patient(){
         connection_patient();
         printf("                                  ----------hello---------- \n                                    ");
         printf("\n     ----------bienvenue chers patient j'espère que ça va pour le mieux aujourdh'hui----------");
-        printf("\n\n  voulez vous prendre rendez vous avec un medecin ou voulez vous consulter votre ordonnance.");
+        printf("\n\n  voulez vous prendre rendez vous avec un medecin ou voulez vous consulter vos messages?");
         ran:
-        printf("\n \n           choisir 1 pour prendre rendez vous et 2 pour consulter l'ordonnance ");
+        
+        printf("\n \n           choisir 1 pour prendre rendez vous et 2 pour consulter les messages ");
          
         scanf("%d",&c);
         switch (c)
@@ -44,8 +45,12 @@ void patient(){
             printf("choisir un medecin");// a modifier
             break;
         case 2:
-            ordonnance();
-        
+            system("cls");
+            printf("\n \n  Entrez votre ID patient pour consulter vos messages : ");
+            scanf("%d", &id_patient_connecte);
+            system("cls");
+            Messages(id_patient_connecte);
+            break;
         default:
         printf("choix invalide\n \n     choisir entre 1 et 2");
         goto ran;

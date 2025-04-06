@@ -7,7 +7,7 @@
 void inscription();//personnes possèdant deja un compte
 void medecin();//liste des médecins
 void fonction_principale();// où la grande partie du code se passe 
-void ordonnance();
+void Messages();
 void connection();
 //void choix_medecin1();// fonction où se retrouve l'utilisateur après avoir choisi l'option médecin
 void medecin();// après que le médecin se soit connecté a son compte
