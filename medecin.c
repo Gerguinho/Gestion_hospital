@@ -15,7 +15,7 @@ void medecin(){
     switch(choix){
         case 1:
             system("cls");
-            printf("dossier médical");
+            consulter_ou_creer_dossier();
             break;
         case 2:
             system("cls");

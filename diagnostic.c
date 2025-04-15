@@ -1,146 +1,163 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
-#include"gerer.h"
-#define MAX_SYMPTOMES 59
+#include "gerer.h"
+
+#define MAX_SYMPTOMES 40
 #define MAX_CHOIX 20
-#define NB_SPECIALISTES 12
+#define NB_SPECIALISTES 10
 
-// Déclaration des tableaux globaux
+// Spécialistes
 char *specialistes[NB_SPECIALISTES] = {
-    "Cardiologue", "Pneumologue", "Nephrologue", "Chirurgien", "Anesthesiste",
-    "Pediatre", "Gynecologue", "Psychiatre", "Radiologue", "Dentiste",
-    "Ophtalmologue", "Sage-femme"
+    "Cardiologue", "Pneumologue", "Endocrinologue", "Infectiologue", "Neurologue",
+    "Gastro-entérologue", "Dermatologue", "Psychiatre", "Ophtalmologue", "Gynécologue"
 };
 
+// Symptômes (liés à des maladies courantes selon l'OMS)
 char *symptomes[MAX_SYMPTOMES] = {
-    "Douleur thoracique", "Essoufflement", "Palpitations", "Hypertension", "Malaise inexplique", "Œdeme des jambes",
-    "Toux persistante", "Respiration sifflante", "Douleur thoracique liee a la respiration", "Crachats sanglants",
-    "Gonflement des jambes ou du visage", "Urine mousseuse ou sanglante", "Douleur lombaire", "Fatigue inexpliquee",
-    "Douleur abdominale severe", "Tumeur suspecte", "Hernie", "Appendicite", "Fractures nécessitant une intervention",
-    "Consultation pre-operatoire avant une chirurgie", "Allergies aux anesthesiques", "Douleur chronique necessitant une gestion",
-    "Suivi médical des enfants", "Fievre persistante", "Troubles du developpement", "Infections frequentes",
-    "Regles irregulieres", "Douleurs pelviennes", "Grossesse", "Infections vaginales", "Contraception", "Ménopause",
-    "Dépression", "Anxiete", "Hallucinations", "Troubles du comportement", "Insomnie chronique", "Pensees suicidaires",
-    "Imagerie medicale pour diagnostiquer des pathologies", "Radio", "IRM", "Scanner", "Echographie",
-    "Caries", "Douleurs dentaires", "Saignement des gencives", "Dents cassees", "Mauvaise haleine persistante",
-    "Baisse de vision", "Douleurs oculaires", "Rougeurs", "Infections", "Secheresse excessive", "Vision double",
-    "Suivi de grossesse", "Accouchement", "Conseils en allaitement et post-partum"
+    "Douleur thoracique",
+    "Essoufflement au repos ou à l’effort",
+    "Palpitations cardiaques",
+    "Hypertension persistante",
+    "Toux persistante avec fièvre",
+    "Expectorations sanglantes",
+    "Fièvre prolongée",
+    "Perte de poids involontaire",
+    "Vision floue ou altérée",
+    "Faim et soif excessive",
+    "Fatigue chronique",
+    "Engourdissement ou picotement",
+    "Convulsions",
+    "Maux de tête fréquents",
+    "Nausées/vomissements réguliers",
+    "Diarrhée prolongée",
+    "Douleurs abdominales intenses",
+    "Lésions cutanées anormales",
+    "Démangeaisons sévères",
+    "Sautes d'humeur fréquentes",
+    "Insomnie sévère",
+    "Pensées suicidaires",
+    "Déformation de la vision des couleurs",
+    "Douleur oculaire aiguë",
+    "Troubles menstruels",
+    "Douleurs pelviennes chroniques",
+    "Grossesse suspectée",
+    "Perte de conscience",
+    "Gonflement des jambes",
+    "Fièvre après un voyage",
+    "Saignement anormal",
+    "Jaunisse",
+    "Difficulté à respirer",
+    "Taches rouges sur la peau",
+    "Douleurs articulaires",
+    "Tremblements involontaires",
+    "Douleur intense au dos",
+    "Trouble de la mémoire",
+    "Infections urinaires fréquentes",
+    "Sécheresse vaginale"
 };
 
+// Correspondance symptômes → spécialistes
 int correspondance[MAX_SYMPTOMES] = {
-    0, 0, 0, 0, 0, 0,    // Cardiologue
-    1, 1, 1, 1,          // Pneumologue
-    2, 2, 2, 2,          // Néphrologue
-    3, 3, 3, 3, 3,       // Chirurgien
-    4, 4, 4,             // Anesthésiste
-    5, 5, 5, 5,          // Pédiatre
-    6, 6, 6, 6, 6, 6,    // Gynécologue
-    7, 7, 7, 7, 7, 7,    // Psychiatre
-    8, 8, 8, 8,          // Radiologue
-    9, 9, 9, 9, 9,       // Dentiste
-    10, 10, 10, 10, 10, 10, // Ophtalmologue
-    11, 11, 11           // Sage-femme
+    0, 1, 0, 0, 1, 1, 3, 3, 8, 2, 2, 4, 4, 0, 5, 5, 5, 6, 6, 7,
+    7, 7, 8, 8, 9, 9, 9, 4, 0, 3, 5, 5, 1, 3, 4, 4, 4, 4, 5, 9
 };
 
-// Données utilisateur
 int symptomes_choisis[MAX_CHOIX];
 int nb_choix = 0;
 int scores[NB_SPECIALISTES] = {0};
 
 void afficher_menu() {
-    printf("\n\n----Menu principal----\n\n");
-    printf("1. Afficher la liste des symptomes\n\n");
-    printf("2. Choisir un symptome\n\n");
-    printf("3. Voir les symptomes choisis\n\n");
-    printf("4. Recommander un spécialiste\n\n");
-    printf("5. Sauvegarder les résultats dans un fichier\n\n");
-    printf("0. Quitter\n\n");
+    printf("\n---- Menu Principal ----\n");
+    printf("1. Afficher les symptômes\n");
+    printf("2. Choisir un symptôme\n");
+    printf("3. Voir les symptômes choisis\n");
+    printf("4. Recommander un spécialiste\n");
+    printf("5. Sauvegarder les résultats\n");
+    printf("0. Quitter\n");
     printf("Votre choix : ");
 }
 
 void afficher_symptomes() {
-    int i;
-    for (i = 0; i < MAX_SYMPTOMES; i++) {
+    for (int i = 0; i < MAX_SYMPTOMES; i++) {
         printf("%d. %s\n", i + 1, symptomes[i]);
     }
 }
 
 void choisir_symptome() {
     int choix;
-    printf("Entrez le numero du symptome (0 pour revenir au menu) : ");
+    printf("Entrez le numéro du symptôme (0 pour revenir) : ");
     while (scanf("%d", &choix) && choix != 0) {
         if (choix < 1 || choix > MAX_SYMPTOMES) {
-            printf("Invalide. Réessayez : ");
+            printf("Numéro invalide. Réessayez : ");
         } else if (nb_choix < MAX_CHOIX) {
             symptomes_choisis[nb_choix++] = choix - 1;
             scores[correspondance[choix - 1]]++;
-            printf("Symptome ajouté. En choisir un autre (0 pour revenir au menu) : ");
+            printf("Symptôme ajouté. En choisir un autre (0 pour revenir) : ");
         } else {
-            printf("Limite de %d symptomes atteinte.\n", MAX_CHOIX);
+            printf("Limite de symptômes atteinte.\n");
             break;
         }
     }
 }
 
 void afficher_choix() {
-    int i;
     if (nb_choix == 0) {
-        printf("Aucun symptome choisi pour l'instant.\n");
+        printf("Aucun symptôme choisi.\n");
         return;
     }
     printf("\n--- Symptômes choisis ---\n");
-    for (i = 0; i < nb_choix; i++) {
+    for (int i = 0; i < nb_choix; i++) {
         printf("- %s\n", symptomes[symptomes_choisis[i]]);
     }
 }
 
 void recommander_specialiste() {
     int max = 0;
-    int i;
-    for ( i = 0; i < NB_SPECIALISTES; i++) {
+    for (int i = 0; i < NB_SPECIALISTES; i++) {
         if (scores[i] > max) max = scores[i];
     }
+
     if (max == 0) {
-        printf("Aucun symptome choisi. Impossible de recommander.\n");
+        printf("Aucun symptôme choisi. Recommandation impossible.\n");
         return;
     }
-    printf("\n--- Spécialiste(s) recommandé(s) ---\n");
-    for ( i = 0; i < NB_SPECIALISTES; i++) {
-        if (scores[i] == max) {
-            printf("- %s\n", specialistes[i]);
-        }
+
+    printf("\n--- Recommandation ---\n");
+    for (int i = 0; i < nb_choix; i++) {
+        int indice = symptomes_choisis[i];
+        printf("Pour le symptôme \"%s\" consultez un(e) %s.\n", symptomes[indice], specialistes[correspondance[indice]]);
     }
+
+    
 }
 
 void sauvegarder() {
-    int i;
     FILE *f = fopen("resultat_diagnostic.txt", "w");
     if (!f) {
-        printf("Erreur lors de la création du fichier.\n");
+        printf("Erreur d'écriture du fichier.\n");
         return;
     }
+
     fprintf(f, "--- Symptômes choisis ---\n");
-    for (i = 0; i < nb_choix; i++) {
+    for (int i = 0; i < nb_choix; i++) {
         fprintf(f, "- %s\n", symptomes[symptomes_choisis[i]]);
     }
-    int max = 0;
-    for ( i = 0; i < NB_SPECIALISTES; i++) {
-        if (scores[i] > max) max = scores[i];
+
+    fprintf(f, "\n--- Recommandations ---\n");
+    for (int i = 0; i < nb_choix; i++) {
+        int indice = symptomes_choisis[i];
+        fprintf(f, "Pour \"%s\" → %s\n", symptomes[indice], specialistes[correspondance[indice]]);
     }
-    fprintf(f, "\n--- Spécialiste(s) recommandé(s) ---\n");
-    for ( i = 0; i < NB_SPECIALISTES; i++) {
-        if (scores[i] == max && max > 0) {
-            fprintf(f, "- %s\n", specialistes[i]);
-        }
-    }
+
     fclose(f);
     printf("Résultats sauvegardés dans resultat_diagnostic.txt\n");
 }
 
 void diagnostic() {
     int option;
-    printf("=== Bienvenue dans l'outil de diagnostic ===\n");
-
+    printf("=== Outil de Diagnostic Médical ===\n");
     do {
         afficher_menu();
         scanf("%d", &option);
@@ -154,6 +171,4 @@ void diagnostic() {
             default: printf("Option invalide.\n"); break;
         }
     } while (option != 0);
-
-    
 }

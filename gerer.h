@@ -17,6 +17,7 @@ void abonnement();
 void connection_patient();
 void ecrirePatient();
 void diagnostic();
+void consulter_ou_creer_dossier();
 extern const char *FILE_patient;
 extern const char *FILE_medecin;
 //extern const char *FILE_messages;
@@ -36,6 +37,7 @@ typedef struct {
     char Email[MAX_L];
     char mot_passe[MAX_L];
     char mot_passe_confirm[MAX_L];
+    char specialite[MAX_L];
 } User;
 
 #endif
