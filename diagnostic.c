@@ -48,7 +48,7 @@ int nb_choix = 0;
 int scores[NB_SPECIALISTES] = {0};
 
 void afficher_menu() {
-    printf("\n\n--- Menu principal ---\n\n");
+    printf("\n\n----Menu principal----\n\n");
     printf("1. Afficher la liste des symptomes\n\n");
     printf("2. Choisir un symptome\n\n");
     printf("3. Voir les symptomes choisis\n\n");
