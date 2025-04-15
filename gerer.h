@@ -16,6 +16,7 @@ void essai_gratuit();
 void abonnement();
 void connection_patient();
 void ecrirePatient();
+void diagnostic();
 extern const char *FILE_patient;
 extern const char *FILE_medecin;
 //extern const char *FILE_messages;

@@ -15,7 +15,7 @@ T:
  FILE *file = fopen(FILE_patient, "r");
  if (file == NULL) {
      printf("Erreur : Le fichier des patients n'existe pas !\n");
-     return;
+     exit(1);
  }
 
 

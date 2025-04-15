@@ -32,17 +32,17 @@ void patient(){
         connection_patient();
         printf("                                  ----------hello---------- \n                                    ");
         printf("\n     ----------bienvenue chers patient j'espère que ça va pour le mieux aujourdh'hui----------");
-        printf("\n\n  voulez vous prendre rendez vous avec un medecin ou voulez vous consulter vos messages?");
+        printf("\n\n  voulez vous faire un diagnostic ou voulez vous consulter vos messages?");
         ran:
         
-        printf("\n \n           choisir 1 pour prendre rendez vous et 2 pour consulter les messages ");
+        printf("\n \n           choisir 1 pour faire un diagnostic et 2 pour consulter les messages ");
          
         scanf("%d",&c);
         switch (c)
         {
         case 1:
-            printf("quelle categories de médecin voulez vous rencontrer?");
-            printf("choisir un medecin");// a modifier
+        system("cls");
+            diagnostic();
             break;
         case 2:
             system("cls");
