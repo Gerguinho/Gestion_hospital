@@ -1,8 +1,6 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "gerer.h"
+#include <string.h>
 
 #define MAX_SYMPTOMES 40
 #define MAX_CHOIX 20
@@ -14,48 +12,21 @@ char *specialistes[NB_SPECIALISTES] = {
     "Gastro-entérologue", "Dermatologue", "Psychiatre", "Ophtalmologue", "Gynécologue"
 };
 
-// Symptômes (liés à des maladies courantes selon l'OMS)
+// Symptômes
 char *symptomes[MAX_SYMPTOMES] = {
-    "Douleur thoracique",
-    "Essoufflement au repos ou à l’effort",
-    "Palpitations cardiaques",
-    "Hypertension persistante",
-    "Toux persistante avec fièvre",
-    "Expectorations sanglantes",
-    "Fièvre prolongée",
-    "Perte de poids involontaire",
-    "Vision floue ou altérée",
-    "Faim et soif excessive",
-    "Fatigue chronique",
-    "Engourdissement ou picotement",
-    "Convulsions",
-    "Maux de tête fréquents",
-    "Nausées/vomissements réguliers",
-    "Diarrhée prolongée",
-    "Douleurs abdominales intenses",
-    "Lésions cutanées anormales",
-    "Démangeaisons sévères",
-    "Sautes d'humeur fréquentes",
-    "Insomnie sévère",
-    "Pensées suicidaires",
-    "Déformation de la vision des couleurs",
-    "Douleur oculaire aiguë",
-    "Troubles menstruels",
-    "Douleurs pelviennes chroniques",
-    "Grossesse suspectée",
-    "Perte de conscience",
-    "Gonflement des jambes",
-    "Fièvre après un voyage",
-    "Saignement anormal",
-    "Jaunisse",
-    "Difficulté à respirer",
-    "Taches rouges sur la peau",
-    "Douleurs articulaires",
-    "Tremblements involontaires",
-    "Douleur intense au dos",
-    "Trouble de la mémoire",
-    "Infections urinaires fréquentes",
-    "Sécheresse vaginale"
+    "Douleur thoracique", "Essoufflement au repos ou à l’effort", "Palpitations cardiaques",
+    "Hypertension persistante", "Toux persistante avec fièvre", "Expectorations sanglantes",
+    "Fièvre prolongée", "Perte de poids involontaire", "Vision floue ou altérée",
+    "Faim et soif excessive", "Fatigue chronique", "Engourdissement ou picotement",
+    "Convulsions", "Maux de tête fréquents", "Nausées/vomissements réguliers",
+    "Diarrhée prolongée", "Douleurs abdominales intenses", "Lésions cutanées anormales",
+    "Démangeaisons sévères", "Sautes d'humeur fréquentes", "Insomnie sévère",
+    "Pensées suicidaires", "Déformation de la vision des couleurs", "Douleur oculaire aiguë",
+    "Troubles menstruels", "Douleurs pelviennes chroniques", "Grossesse suspectée",
+    "Perte de conscience", "Gonflement des jambes", "Fièvre après un voyage",
+    "Saignement anormal", "Jaunisse", "Difficulté à respirer", "Taches rouges sur la peau",
+    "Douleurs articulaires", "Tremblements involontaires", "Douleur intense au dos",
+    "Trouble de la mémoire", "Infections urinaires fréquentes", "Sécheresse vaginale"
 };
 
 // Correspondance symptômes → spécialistes
@@ -68,6 +39,7 @@ int symptomes_choisis[MAX_CHOIX];
 int nb_choix = 0;
 int scores[NB_SPECIALISTES] = {0};
 
+// Affichage du menu principal
 void afficher_menu() {
     printf("\n---- Menu Principal ----\n");
     printf("1. Afficher les symptômes\n");
@@ -79,12 +51,14 @@ void afficher_menu() {
     printf("Votre choix : ");
 }
 
+// Afficher les symptômes disponibles
 void afficher_symptomes() {
     for (int i = 0; i < MAX_SYMPTOMES; i++) {
         printf("%d. %s\n", i + 1, symptomes[i]);
     }
 }
 
+// Choisir un symptôme
 void choisir_symptome() {
     int choix;
     printf("Entrez le numéro du symptôme (0 pour revenir) : ");
@@ -102,6 +76,7 @@ void choisir_symptome() {
     }
 }
 
+// Afficher les symptômes choisis
 void afficher_choix() {
     if (nb_choix == 0) {
         printf("Aucun symptôme choisi.\n");
@@ -113,10 +88,75 @@ void afficher_choix() {
     }
 }
 
+// Afficher les disponibilités d'un médecin donné
+void afficher_disponibilite(const char *email_medecin) {
+    FILE *f = fopen("disponibilite.txt", "r");
+    if (!f) {
+        printf("Erreur : impossible d'ouvrir disponibilite.txt\n");
+        return;
+    }
+
+    char ligne[256];
+    int trouve = 0;
+    printf("  Disponibilités :\n");
+
+    // Lire et afficher les disponibilités
+    while (fgets(ligne, sizeof(ligne), f)) {
+        char email[100], date[20], plage_horaire[20];
+        sscanf(ligne, "%s %s %s", email, date, plage_horaire);
+
+        if (strcmp(email, email_medecin) == 0) {
+            printf("    - %s entre %s\n", date, plage_horaire);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve) {
+        printf("    Aucune disponibilité enregistrée pour ce médecin.\n");
+    }
+
+    fclose(f);
+}
+
+// Afficher les médecins disponibles pour une spécialité donnée
+void afficher_medecins_specialiste(const char *specialite) {
+    FILE *f = fopen("Medecin.csv", "r");
+    if (!f) {
+        printf("Erreur : impossible d'ouvrir Medecin.csv\n");
+        return;
+    }
+
+    char ligne[256];
+    int trouve = 0;
+
+    printf("\nMédecins disponibles pour la spécialité \"%s\" :\n", specialite);
+
+    while (fgets(ligne, sizeof(ligne), f)) {
+        char nom[50], prenom[50], email[100], motdepasse[50], spec[50];
+        sscanf(ligne, "%s %s %s %s %s", nom, prenom, email, motdepasse, spec);
+
+        if (strcmp(spec, specialite) == 0) {
+            printf("- Dr %s %s (Email : %s)\n", nom, prenom, email);
+            afficher_disponibilite(email);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve) {
+        printf("Aucun médecin trouvé pour cette spécialité.\n");
+    }
+
+    fclose(f);
+}
+
+// Recommander un spécialiste en fonction des symptômes choisis
 void recommander_specialiste() {
-    int max = 0;
+    int max = 0, index_max = -1;
     for (int i = 0; i < NB_SPECIALISTES; i++) {
-        if (scores[i] > max) max = scores[i];
+        if (scores[i] > max) {
+            max = scores[i];
+            index_max = i;
+        }
     }
 
     if (max == 0) {
@@ -130,9 +170,18 @@ void recommander_specialiste() {
         printf("Pour le symptôme \"%s\" consultez un(e) %s.\n", symptomes[indice], specialistes[correspondance[indice]]);
     }
 
-    
+    char reponse;
+    printf("\nSouhaitez-vous prendre rendez-vous avec un(e) %s ? (o/n) : ", specialistes[index_max]);
+    scanf(" %c", &reponse);
+
+    if (reponse == 'o' || reponse == 'O') {
+        afficher_medecins_specialiste(specialistes[index_max]);
+    } else {
+        printf("D'accord, pas de rendez-vous pour le moment.\n");
+    }
 }
 
+// Sauvegarder les résultats du diagnostic
 void sauvegarder() {
     FILE *f = fopen("resultat_diagnostic.txt", "w");
     if (!f) {
@@ -155,6 +204,7 @@ void sauvegarder() {
     printf("Résultats sauvegardés dans resultat_diagnostic.txt\n");
 }
 
+// Fonction principale pour lancer l'outil de diagnostic médical
 void diagnostic() {
     int option;
     printf("=== Outil de Diagnostic Médical ===\n");
@@ -172,3 +222,5 @@ void diagnostic() {
         }
     } while (option != 0);
 }
+
+

@@ -17,6 +17,7 @@ void abonnement();
 void connection_patient();
 void ecrirePatient();
 void diagnostic();
+void mettreAJourDisponibilite();
 void consulter_ou_creer_dossier();
 extern const char *FILE_patient;
 extern const char *FILE_medecin;
