@@ -5,3 +5,4 @@ patient.csv
 id_rsa.pub 
 id_rsa.pub.pub
 .vscode
+.vscode/settings.json
