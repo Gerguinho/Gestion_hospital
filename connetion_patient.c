@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <conio.h>  
 #include"gerer.h"
 
 
@@ -29,7 +30,20 @@ scanf("%s",prenom);
 printf("Email :\n     ");
 scanf("%s", email);
 printf("Mot de passe : \n     ");
-scanf("%s", password);
+int i = 0;
+char ch;
+while ((ch = getch()) != '\r') {  // '\r' correspond à Entrée
+    if (ch == 8) { // touche retour arrière
+        if (i > 0) {
+            i--;
+            printf("\b \b");
+        }
+    } else if (i < MAX_L - 1) {
+        password[i++] = ch;
+        printf("*");
+    }
+}
+password[i] = '\0';
 system("cls");
 found = 0;
 // Vérifier les informations dans le fichier
