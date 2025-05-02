@@ -56,7 +56,7 @@ void ecrirePatient() {
 
     // Saisie du message
     char message[200];
-    printf("Entrez votre message : ");
+    printf("Entrez votre message s'il vous plait précisé votre nom dans le message : ");
     fgets(message, sizeof(message), stdin);
     message[strcspn(message, "\n")] = '\0';  // Supprimer le '\n'
 
@@ -66,6 +66,7 @@ void ecrirePatient() {
 
     printf("\nMessage envoyé à %s %s avec succès !\n", patientNom, patientPrenom);
 }
+
 
 
 

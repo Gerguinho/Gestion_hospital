@@ -23,6 +23,8 @@ void Messages(int patientID){
     
         fclose(fileMessages);
     }
+
+   
     
     
 
